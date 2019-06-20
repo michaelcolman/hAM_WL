@@ -1,0 +1,25 @@
+# Compiler and flags
+CC = clang++
+CFLAGS = -O3 -w
+CFLAGS2 = -Xpreprocessor -fopenmp -lomp
+
+# build options
+all: single_native tissue_native bin_to_vtk_dat_tissue
+
+# compilation file lists
+common = lib/Arguments.c lib/Initialisation.c  lib/Model.c lib/Model*.cpp lib/Read_write_state.c lib/Outputs.cpp
+SC = lib/Spatial_coupling.cpp
+tissue = lib/Tissue.cpp
+
+# Compile
+single_native: $(common) Single_cell_native_main.cc
+	$(CC) $(CFLAGS) -o model_single_native $(common) Single_cell_native_main.cc
+
+tissue_native: $(common) $(SC) $(tissue) Tissue_native_main.cc
+	$(CC) $(CFLAGS) $(CFLAGS2) -o model_tissue_native $(common) $(SC) $(tissue) Tissue_native_main.cc
+
+bin_to_vtk_dat_tissue: $(common) $(SC) $(tissue) Data_convert_binary_to_vtk_text_tissue.cc
+	$(CC) $(CFLAGS) $(CFLAGS2) -o bin_to_vtk_tissue $(common) $(SC) $(tissue) Data_convert_binary_to_vtk_text_tissue.cc
+
+clean:
+	rm model_*
