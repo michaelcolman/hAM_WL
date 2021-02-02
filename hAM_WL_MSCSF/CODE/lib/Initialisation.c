@@ -83,6 +83,7 @@
 //	update_parameters_spatial_Ca_0D()
 //	initialise_measurement_variables()
 //	set_modification_defaults_native()
+//	assign_concentrations_from_arguments()
 //	assign_modification_from_arguments()
 // End Function list ============================================================================//|
 
@@ -614,6 +615,17 @@ void set_modification_defaults_native(Cell_parameters *p)
 	p->IK1_VEexp_scale			= 1.0;
 	p->IK1_den_add_factor		= 1.0;
 	p->IK1_Erev_shift			= 0.0;
+}
+
+void assign_concentrations_from_arguments(Cell_parameters *p, Argument_parameters A)
+{
+    // If the argument has been passed, set the parameters to the defined argument, else leave as defaults
+    if (A.Nai_arg       == true)    p->Nai      = A.Nai;
+    if (A.Nao_arg       == true)    p->Nao      = A.Nao;
+    if (A.Ki_arg        == true)    p->Ki       = A.Ki;
+    if (A.Ko_arg        == true)    p->Ko       = A.Ko;
+    //if (A.Cai_arg       == true)    p->Cai      = A.Cai;
+    if (A.Cao_arg       == true)    p->Cao      = A.Cao;
 }
 
 void assign_modification_from_arguments(Cell_parameters *p, Argument_parameters A)

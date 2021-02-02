@@ -1,6 +1,8 @@
 Version 1.0 Release.
 
 Version list:
+    03/02/2021 - Extracellular concentrations added as run-time controllable parameters
+
     01/04/2020 - Arguments.c file updated to Windows format as default for cross-OS compatibility.
 
     07/10/2019 - Fix:   In function "output_settings()", the order of variables Gleak and Gup was the incorrect way round relative to the text
